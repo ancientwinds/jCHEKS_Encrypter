@@ -24,7 +24,6 @@ public class mainTemp {
             
             String test = "Test d'encryption $#!@$#@";
             MockCS cs = new MockCS();
-            cs.temp();
                   
             String encrypted = encrypter.encrypt(test, cs);
             String decrypted = encrypter.decrypt(encrypted, cs);

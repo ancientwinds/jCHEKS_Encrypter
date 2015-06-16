@@ -36,7 +36,6 @@ public class RijndaelEncrypter extends AbstractEncrypter{
         
         byte[] encryptedData;
         try {
-
             IvParameterSpec IVParamSpec = new IvParameterSpec(chaoticSystem.IV());
             SecretKey password = new SecretKeySpec(this.digest.digest(chaoticSystem.Key()), ALGORITHM);
 
@@ -52,11 +51,9 @@ public class RijndaelEncrypter extends AbstractEncrypter{
     }
 
     @Override
-    public String decrypt(String text, AbstractChaoticSystem chaoticSystem) {
-        
+    public String decrypt(String text, AbstractChaoticSystem chaoticSystem) {        
         
         try {
-
             IvParameterSpec IVParamSpec = new IvParameterSpec(chaoticSystem.IV());
             SecretKey password = new SecretKeySpec(this.digest.digest(chaoticSystem.Key()), ALGORITHM);
 

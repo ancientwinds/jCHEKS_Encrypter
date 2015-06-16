@@ -7,7 +7,6 @@ package com.archosResearch.jCHEKS.encrypter;
 
 import com.archosResearch.jCHEKS.concept.chaoticSystem.AbstractChaoticSystem;
 import java.util.Arrays;
-import java.util.Random;
 
 /**
  *
@@ -15,6 +14,15 @@ import java.util.Random;
  */
 public class MockCS extends AbstractChaoticSystem{
 
+    public MockCS() {
+        byte[] b = new byte[16];    
+        Arrays.fill( b, (byte)0 );
+        this.lastGeneratedIV = b;
+        
+        byte[] c = new byte[128];    
+        Arrays.fill( c, (byte)0 );
+        this.lastGeneratedKey = c;
+    }
     @Override
     public void Evolve(int factor) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -49,15 +57,5 @@ public class MockCS extends AbstractChaoticSystem{
     public void Generate(int keyLength) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    public void temp() {
-        byte[] b = new byte[16];    
-        Arrays.fill( b, (byte)0 );
-        this.lastGeneratedIV = b;
-        
-        byte[] c = new byte[128];    
-        Arrays.fill( c, (byte)0 );
-        this.lastGeneratedKey = c;
-    }
-    
+   
 }
