@@ -15,7 +15,7 @@ import javax.crypto.spec.SecretKeySpec;
  */
 public class RijndaelEncrypter extends AbstractEncrypter{
 
-    private static final String TRANSFORMATION = "AES/CBC/PKCS5Padding";
+    private static final String TRANSFORMATION = "AES/CBC/NoPadding";
     private static final String ALGORITHM = "AES";
     private static final String DIGEST = "MD5";
     
