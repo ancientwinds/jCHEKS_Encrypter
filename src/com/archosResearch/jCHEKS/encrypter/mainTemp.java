@@ -22,12 +22,12 @@ public class mainTemp {
         try {
             RijndaelEncrypter encrypter = new RijndaelEncrypter();
             
-            String test = "Test d'encryption!@@!$$#";
+            String test = "Test d'encryption $#!@$#@";
             MockCS cs = new MockCS();
             cs.temp();
-            
-            byte[] encrypted = encrypter.encrypt(test.getBytes(), cs);
-            byte[] decrypted = encrypter.decrypt(encrypted, cs);
+                  
+            String encrypted = encrypter.encrypt(test, cs);
+            String decrypted = encrypter.decrypt(encrypted, cs);
             
             System.out.println("Encrypted: " + new String(encrypted));
             System.out.println("Decrypted: " + new String(decrypted));
