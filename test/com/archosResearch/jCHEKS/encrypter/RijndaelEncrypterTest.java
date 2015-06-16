@@ -5,6 +5,7 @@
  */
 package com.archosResearch.jCHEKS.encrypter;
 
+import com.archosResearch.jCHEKS.encrypter.mock.MockChaoticSystem;
 import java.security.NoSuchAlgorithmException;
 import javax.crypto.NoSuchPaddingException;
 import org.junit.Test;
@@ -29,10 +30,8 @@ public class RijndaelEncrypterTest {
     @Test
     public void decrypt_should_decrypt_the_message() throws NoSuchAlgorithmException, NoSuchPaddingException {
         
-        RijndaelEncrypter instance = new RijndaelEncrypter();
-        MockCS cs = new MockCS();
-        String result = instance.decrypt(this.encrypted, cs);
-        
+        RijndaelEncrypter instance = new RijndaelEncrypter();       
+        String result = instance.decrypt(this.encrypted, new MockChaoticSystem());        
         assertEquals(result, this.decrypted);
     }
     
@@ -40,8 +39,7 @@ public class RijndaelEncrypterTest {
     public void encrypt_should_encrypt_the_message() throws NoSuchAlgorithmException, NoSuchPaddingException {
         
         RijndaelEncrypter instance = new RijndaelEncrypter();
-        MockCS cs = new MockCS();
-        String result = instance.encrypt(this.decrypted, cs);
+        String result = instance.encrypt(this.decrypted, new MockChaoticSystem());
         assertEquals(result, this.encrypted);
     }
     
