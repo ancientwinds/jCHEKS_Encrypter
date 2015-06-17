@@ -2,19 +2,16 @@ package com.archosResearch.jCHEKS.encrypter;
 
 import com.archosResearch.jCHEKS.concept.chaoticSystem.AbstractChaoticSystem;
 import com.archosResearch.jCHEKS.concept.encrypter.AbstractEncrypter;
-import java.io.IOException;
+import com.archosResearch.jCHEKS.concept.exception.EncrypterException;
 import java.io.UnsupportedEncodingException;
 import java.security.*;
-import java.util.logging.*;
+import java.util.Base64;
 import javax.crypto.*;
-import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.SecretKeySpec;
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
+import javax.crypto.spec.*;
 
 /**
  *
- * @author fgagnon
+ * @author Thomas Lepage thomas.lepage@hotmail.ca
  */
 public class RijndaelEncrypter extends AbstractEncrypter{
 
@@ -32,7 +29,7 @@ public class RijndaelEncrypter extends AbstractEncrypter{
     }
     
     @Override
-    public String encrypt(String text, AbstractChaoticSystem chaoticSystem) {
+    public String encrypt(String text, AbstractChaoticSystem chaoticSystem) throws EncrypterException {
         
         byte[] encryptedData;
         try {
@@ -41,32 +38,29 @@ public class RijndaelEncrypter extends AbstractEncrypter{
 
             this.cipher.init(Cipher.ENCRYPT_MODE, password, IVParamSpec);
             encryptedData = this.cipher.doFinal(text.getBytes("UTF8"));
-          
-            return new BASE64Encoder().encode(encryptedData);
+            
+            return Base64.getEncoder().encodeToString(encryptedData);
             
         } catch (InvalidKeyException | InvalidAlgorithmParameterException | IllegalBlockSizeException | BadPaddingException | UnsupportedEncodingException ex) {
-            Logger.getLogger(RijndaelEncrypter.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
+            throw new EncrypterException("Encryption error", ex);
         }
     }
 
     @Override
-    public String decrypt(String text, AbstractChaoticSystem chaoticSystem) {        
+    public String decrypt(String text, AbstractChaoticSystem chaoticSystem) throws EncrypterException {        
         
         try {
             IvParameterSpec IVParamSpec = new IvParameterSpec(chaoticSystem.IV());
             SecretKey password = new SecretKeySpec(this.digest.digest(chaoticSystem.Key()), ALGORITHM);
 
             this.cipher.init(Cipher.DECRYPT_MODE, password, IVParamSpec);
-            byte[] decodedData = new BASE64Decoder().decodeBuffer(text);
+            byte[] decodedData = Base64.getDecoder().decode(text);
             byte[] decryptedData = this.cipher.doFinal(decodedData);
             
-            return new String(decryptedData);
+            return new String(decryptedData);          
             
-            
-        } catch (InvalidKeyException | InvalidAlgorithmParameterException | IllegalBlockSizeException | BadPaddingException | IOException ex) {
-            Logger.getLogger(RijndaelEncrypter.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
+        } catch (InvalidKeyException | InvalidAlgorithmParameterException | IllegalBlockSizeException | BadPaddingException ex) {
+            throw new EncrypterException("Decryption error", ex);
         }
     }
 }
