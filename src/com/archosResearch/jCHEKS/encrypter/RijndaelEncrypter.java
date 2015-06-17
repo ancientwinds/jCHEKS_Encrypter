@@ -42,7 +42,7 @@ public class RijndaelEncrypter extends AbstractEncrypter{
             return Base64.getEncoder().encodeToString(encryptedData);
             
         } catch (InvalidKeyException | InvalidAlgorithmParameterException | IllegalBlockSizeException | BadPaddingException | UnsupportedEncodingException ex) {
-            throw new EncrypterException("Encryption error", ex);
+            throw new EncrypterException("Rijndael Encryption error", ex);
         }
     }
 
@@ -60,7 +60,7 @@ public class RijndaelEncrypter extends AbstractEncrypter{
             return new String(decryptedData);          
             
         } catch (InvalidKeyException | InvalidAlgorithmParameterException | IllegalBlockSizeException | BadPaddingException ex) {
-            throw new EncrypterException("Decryption error", ex);
+            throw new EncrypterException("Rijndael Decryption error", ex);
         }
     }
 }
