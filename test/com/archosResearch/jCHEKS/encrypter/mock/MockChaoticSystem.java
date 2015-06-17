@@ -8,23 +8,22 @@ import java.util.Arrays;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Thomas Lepage thomas.lepage@hotmail.ca
  */
-public class MockChaoticSystem extends AbstractChaoticSystem{
+public class MockChaoticSystem extends AbstractChaoticSystem {
 
     public MockChaoticSystem() {
-        byte[] b = new byte[16];    
-        Arrays.fill( b, (byte)0 );
+        byte[] b = new byte[16];
+        Arrays.fill(b, (byte) 0);
         this.lastGeneratedIV = b;
-        
-        byte[] c = new byte[128];    
-        Arrays.fill( c, (byte)0 );
+
+        byte[] c = new byte[128];
+        Arrays.fill(c, (byte) 0);
         this.lastGeneratedKey = c;
     }
-    
+
     @Override
     public void Evolve(int factor) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -59,5 +58,5 @@ public class MockChaoticSystem extends AbstractChaoticSystem{
     public void Generate(int keyLength) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }
