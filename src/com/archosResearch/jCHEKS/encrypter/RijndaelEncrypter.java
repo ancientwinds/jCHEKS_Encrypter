@@ -21,7 +21,6 @@ public class RijndaelEncrypter extends AbstractEncrypter {
     private static final String DIGEST = "MD5";
 
     private final MessageDigest digest;
-
     private final Cipher cipher;
 
     public RijndaelEncrypter() throws NoSuchAlgorithmException, NoSuchPaddingException {
@@ -30,15 +29,13 @@ public class RijndaelEncrypter extends AbstractEncrypter {
     }
 
     @Override
-    public String encrypt(String text, AbstractChaoticSystem chaoticSystem) throws EncrypterException {
+    public String encrypt(String textToEncrypt, AbstractChaoticSystem chaoticSystem) throws EncrypterException {
 
-        byte[] encryptedData;
         try {
-            IvParameterSpec IVParamSpec = new IvParameterSpec(chaoticSystem.IV());
             SecretKey password = new SecretKeySpec(this.digest.digest(chaoticSystem.Key()), ALGORITHM);
 
-            this.cipher.init(Cipher.ENCRYPT_MODE, password, IVParamSpec);
-            encryptedData = this.cipher.doFinal(text.getBytes("UTF8"));
+            this.cipher.init(Cipher.ENCRYPT_MODE, password, new IvParameterSpec(chaoticSystem.IV()));
+            byte[] encryptedData = this.cipher.doFinal(textToEncrypt.getBytes("UTF8"));
 
             return Base64.getEncoder().encodeToString(encryptedData);
 
@@ -48,14 +45,13 @@ public class RijndaelEncrypter extends AbstractEncrypter {
     }
 
     @Override
-    public String decrypt(String text, AbstractChaoticSystem chaoticSystem) throws EncrypterException {
+    public String decrypt(String textToDecrypt, AbstractChaoticSystem chaoticSystem) throws EncrypterException {
 
         try {
-            IvParameterSpec IVParamSpec = new IvParameterSpec(chaoticSystem.IV());
             SecretKey password = new SecretKeySpec(this.digest.digest(chaoticSystem.Key()), ALGORITHM);
 
-            this.cipher.init(Cipher.DECRYPT_MODE, password, IVParamSpec);
-            byte[] decodedData = Base64.getDecoder().decode(text);
+            this.cipher.init(Cipher.DECRYPT_MODE, password, new IvParameterSpec(chaoticSystem.IV()));
+            byte[] decodedData = Base64.getDecoder().decode(textToDecrypt);
             byte[] decryptedData = this.cipher.doFinal(decodedData);
 
             return new String(decryptedData);
