@@ -17,6 +17,7 @@ public class RijndaelEncrypter extends AbstractEncrypter{
 
     private static final String TRANSFORMATION = "AES/CBC/PKCS5Padding";
     private static final String ALGORITHM = "AES";
+    // TODO : Use SHA2 instead of MD5
     private static final String DIGEST = "MD5";
     
     private final MessageDigest digest;
