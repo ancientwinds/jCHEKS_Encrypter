@@ -34,8 +34,8 @@ public class RijndaelEncrypter extends AbstractEncrypter{
         
         byte[] encryptedData;
         try {
-            IvParameterSpec IVParamSpec = new IvParameterSpec(chaoticSystem.IV());
-            SecretKey password = new SecretKeySpec(this.digest.digest(chaoticSystem.Key()), ALGORITHM);
+            IvParameterSpec IVParamSpec = new IvParameterSpec(chaoticSystem.getIV());
+            SecretKey password = new SecretKeySpec(this.digest.digest(chaoticSystem.getKey()), ALGORITHM);
 
             this.cipher.init(Cipher.ENCRYPT_MODE, password, IVParamSpec);
             encryptedData = this.cipher.doFinal(text.getBytes("UTF8"));
@@ -51,8 +51,8 @@ public class RijndaelEncrypter extends AbstractEncrypter{
     public String decrypt(String text, AbstractChaoticSystem chaoticSystem) throws EncrypterException {        
         
         try {
-            IvParameterSpec IVParamSpec = new IvParameterSpec(chaoticSystem.IV());
-            SecretKey password = new SecretKeySpec(this.digest.digest(chaoticSystem.Key()), ALGORITHM);
+            IvParameterSpec IVParamSpec = new IvParameterSpec(chaoticSystem.getIV());
+            SecretKey password = new SecretKeySpec(this.digest.digest(chaoticSystem.getKey()), ALGORITHM);
 
             this.cipher.init(Cipher.DECRYPT_MODE, password, IVParamSpec);
             byte[] decodedData = Base64.getDecoder().decode(text);

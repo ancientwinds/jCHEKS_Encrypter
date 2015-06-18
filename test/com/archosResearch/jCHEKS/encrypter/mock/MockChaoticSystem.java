@@ -15,7 +15,8 @@ import java.util.Arrays;
  */
 public class MockChaoticSystem extends AbstractChaoticSystem{
 
-    public MockChaoticSystem() {
+    public MockChaoticSystem(String uniqueId, int keyLength) throws Exception {
+        super(uniqueId, keyLength);
         byte[] b = new byte[16];    
         Arrays.fill( b, (byte)0 );
         this.lastGeneratedIV = b;
@@ -26,22 +27,22 @@ public class MockChaoticSystem extends AbstractChaoticSystem{
     }
     
     @Override
-    public void Evolve(int factor) {
+    public void evolveSystem(int factor) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public byte[] Key(int requiredLength) {
+    public byte[] getKey(int requiredLength) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void Reset() {
+    public void resetSystem() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public AbstractChaoticSystem Clone() {
+    public AbstractChaoticSystem cloneSystem() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -56,7 +57,7 @@ public class MockChaoticSystem extends AbstractChaoticSystem{
     }
 
     @Override
-    public void Generate(int keyLength) throws Exception {
+    public void generateSystem(int keyLength) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
