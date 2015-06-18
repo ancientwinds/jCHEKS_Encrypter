@@ -5,6 +5,7 @@
  */
 package com.archosResearch.jCHEKS.encrypter;
 
+import com.archosResearch.jCHEKS.concept.chaoticSystem.AbstractChaoticSystem;
 import com.archosResearch.jCHEKS.concept.exception.EncrypterException;
 import com.archosResearch.jCHEKS.encrypter.mock.MockChaoticSystem;
 import java.security.NoSuchAlgorithmException;
@@ -31,8 +32,11 @@ public class RijndaelEncrypterTest {
     @Test
     public void decrypt_should_decrypt_the_message() throws NoSuchAlgorithmException, NoSuchPaddingException, EncrypterException, Exception {
         
-        RijndaelEncrypter instance = new RijndaelEncrypter();       
-        String result = instance.decrypt(this.encrypted, new MockChaoticSystem("abc", 128));        
+        RijndaelEncrypter instance = new RijndaelEncrypter(); 
+        AbstractChaoticSystem chaoticSystem = new MockChaoticSystem("abc", 128);
+        byte[] key = chaoticSystem.getKey();
+        byte[] iv = chaoticSystem.getIV();
+        String result = instance.decrypt(this.encrypted, key, iv);        
         assertEquals(result, this.decrypted);
     }
     
@@ -40,7 +44,10 @@ public class RijndaelEncrypterTest {
     public void encrypt_should_encrypt_the_message() throws NoSuchAlgorithmException, NoSuchPaddingException, EncrypterException, Exception {
         
         RijndaelEncrypter instance = new RijndaelEncrypter();
-        String result = instance.encrypt(this.decrypted, new MockChaoticSystem("abc", 128));
+        AbstractChaoticSystem chaoticSystem = new MockChaoticSystem("abc", 128);
+        byte[] key = chaoticSystem.getKey();
+        byte[] iv = chaoticSystem.getIV();        
+        String result = instance.encrypt(this.decrypted, key, iv);
         assertEquals(result, this.encrypted);
     }
     
