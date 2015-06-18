@@ -32,9 +32,7 @@ public class MockChaoticSystem extends AbstractChaoticSystem{
     }
 
     @Override
-    public byte[] getKey(int requiredLength) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public byte[] getKey(int requiredLength) { return null;}
 
     @Override
     public void resetSystem() {
@@ -57,8 +55,6 @@ public class MockChaoticSystem extends AbstractChaoticSystem{
     }
 
     @Override
-    public void generateSystem(int keyLength) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public void generateSystem(int keyLength) throws Exception {}
     
 }
