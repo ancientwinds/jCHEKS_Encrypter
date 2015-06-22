@@ -33,7 +33,7 @@ public class RijndaelEncrypterTest {
     public void decrypt_should_decrypt_the_message() throws NoSuchAlgorithmException, NoSuchPaddingException, EncrypterException, Exception {
         
         RijndaelEncrypter instance = new RijndaelEncrypter(); 
-        AbstractChaoticSystem chaoticSystem = new MockChaoticSystem("abc", 128);
+        AbstractChaoticSystem chaoticSystem = new MockChaoticSystem(128);
         byte[] key = chaoticSystem.getKey();
         byte[] iv = chaoticSystem.getIV();
         String result = instance.decrypt(this.encrypted, key, iv);        
@@ -44,7 +44,7 @@ public class RijndaelEncrypterTest {
     public void encrypt_should_encrypt_the_message() throws NoSuchAlgorithmException, NoSuchPaddingException, EncrypterException, Exception {
         
         RijndaelEncrypter instance = new RijndaelEncrypter();
-        AbstractChaoticSystem chaoticSystem = new MockChaoticSystem("abc", 128);
+        AbstractChaoticSystem chaoticSystem = new MockChaoticSystem(128);
         byte[] key = chaoticSystem.getKey();
         byte[] iv = chaoticSystem.getIV();        
         String result = instance.encrypt(this.decrypted, key, iv);
