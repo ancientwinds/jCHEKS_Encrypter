@@ -15,8 +15,9 @@ import java.util.Arrays;
  */
 public class MockChaoticSystem extends AbstractChaoticSystem{
 
-    public MockChaoticSystem(String uniqueId, int keyLength) throws Exception {
-        super(uniqueId, keyLength);
+    public MockChaoticSystem(int keyLength) throws Exception {
+        super(keyLength);
+        
         byte[] b = new byte[16];    
         Arrays.fill( b, (byte)0 );
         this.lastGeneratedIV = b;
