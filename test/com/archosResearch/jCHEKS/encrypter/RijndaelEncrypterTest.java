@@ -34,9 +34,8 @@ public class RijndaelEncrypterTest {
         
         RijndaelEncrypter instance = new RijndaelEncrypter(); 
         AbstractChaoticSystem chaoticSystem = new MockChaoticSystem(128);
-        byte[] key = chaoticSystem.getKey(128);
-        byte[] iv = chaoticSystem.getKey(16);
-        String result = instance.decrypt(this.encrypted, key, iv);        
+        byte[] key = chaoticSystem.getKey(instance.bytesNeeded());
+        String result = instance.decrypt(this.encrypted, key);        
         assertEquals(result, this.decrypted);
     }
     
@@ -45,9 +44,8 @@ public class RijndaelEncrypterTest {
         
         RijndaelEncrypter instance = new RijndaelEncrypter();
         AbstractChaoticSystem chaoticSystem = new MockChaoticSystem(128);
-        byte[] key = chaoticSystem.getKey(128);
-        byte[] iv = chaoticSystem.getKey(16);        
-        String result = instance.encrypt(this.decrypted, key, iv);
+        byte[] key = chaoticSystem.getKey(instance.bytesNeeded());
+        String result = instance.encrypt(this.decrypted, key);
         assertEquals(result, this.encrypted);
     }
     
