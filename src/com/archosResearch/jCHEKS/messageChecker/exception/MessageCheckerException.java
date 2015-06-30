@@ -8,6 +8,10 @@ import com.archosResearch.jCHEKS.concept.exception.AbstractCHEKSException;
  */
 public class MessageCheckerException extends AbstractCHEKSException{
 
+    public MessageCheckerException(String message) {
+        super(message);
+    }
+    
     public MessageCheckerException(String message, Throwable throwable) {
         super(message, throwable);
     }

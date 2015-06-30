@@ -4,6 +4,8 @@ import com.archosResearch.jCHEKS.messageChecker.exception.MessageCheckerExceptio
 import java.io.UnsupportedEncodingException;
 import java.security.*;
 import java.util.Base64;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
@@ -21,6 +23,16 @@ public class MessageChecker {
             return Base64.getEncoder().encodeToString(sha256_hmac.doFinal(message.getBytes("UTF-8")));
         } catch (NoSuchAlgorithmException | InvalidKeyException | UnsupportedEncodingException ex) {
             throw new MessageCheckerException("Error while encoding the message check.", ex);
+        }
+    }
+    
+    public static boolean validateMessage(byte[] key, String message, String encodedMessage) throws MessageCheckerException {
+        try {
+            String messageToValidate = MessageChecker.encodeMessage(key, message);            
+            
+            return messageToValidate.equals(encodedMessage);
+        } catch (MessageCheckerException ex) {
+            throw new MessageCheckerException("Error while validating the message");
         }
     }
 }
