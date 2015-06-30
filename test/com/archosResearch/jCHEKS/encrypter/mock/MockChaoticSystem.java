@@ -18,10 +18,6 @@ public class MockChaoticSystem extends AbstractChaoticSystem{
     public MockChaoticSystem(int keyLength) throws Exception {
         super(keyLength);
         
-        byte[] b = new byte[16];    
-        Arrays.fill( b, (byte)0 );
-        this.lastGeneratedIV = b;
-        
         byte[] c = new byte[128];    
         Arrays.fill( c, (byte)0 );
         this.lastGeneratedKey = c;
@@ -33,7 +29,11 @@ public class MockChaoticSystem extends AbstractChaoticSystem{
     }
 
     @Override
-    public byte[] getKey(int requiredLength) { return null;}
+    public byte[] getKey(int requiredLength) {
+        byte[] c = new byte[requiredLength];    
+        Arrays.fill( c, (byte)0 );
+        return c;
+    }
 
     @Override
     public void resetSystem() {
@@ -45,10 +45,6 @@ public class MockChaoticSystem extends AbstractChaoticSystem{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public String Serialize() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
     public void Deserialize(String serialization) {
@@ -57,5 +53,10 @@ public class MockChaoticSystem extends AbstractChaoticSystem{
 
     @Override
     public void generateSystem(int keyLength) throws Exception {}
+
+    @Override
+    public String serialize() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
