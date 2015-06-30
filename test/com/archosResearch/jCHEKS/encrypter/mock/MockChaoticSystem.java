@@ -18,10 +18,6 @@ public class MockChaoticSystem extends AbstractChaoticSystem{
     public MockChaoticSystem(int keyLength) throws Exception {
         super(keyLength);
         
-        byte[] b = new byte[16];    
-        Arrays.fill( b, (byte)0 );
-        this.lastGeneratedIV = b;
-        
         byte[] c = new byte[128];    
         Arrays.fill( c, (byte)0 );
         this.lastGeneratedKey = c;
@@ -46,7 +42,7 @@ public class MockChaoticSystem extends AbstractChaoticSystem{
     }
 
     @Override
-    public String Serialize() {
+    public String serialize() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

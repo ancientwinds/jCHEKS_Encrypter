@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.archosResearch.jCHEKS.encrypter;
 
 import com.archosResearch.jCHEKS.concept.chaoticSystem.AbstractChaoticSystem;
@@ -35,7 +30,7 @@ public class RijndaelEncrypterTest {
         RijndaelEncrypter instance = new RijndaelEncrypter(); 
         AbstractChaoticSystem chaoticSystem = new MockChaoticSystem(128);
         byte[] key = chaoticSystem.getKey();
-        byte[] iv = chaoticSystem.getIV();
+        byte[] iv = chaoticSystem.getKey();
         String result = instance.decrypt(this.encrypted, key, iv);        
         assertEquals(result, this.decrypted);
     }
@@ -46,7 +41,7 @@ public class RijndaelEncrypterTest {
         RijndaelEncrypter instance = new RijndaelEncrypter();
         AbstractChaoticSystem chaoticSystem = new MockChaoticSystem(128);
         byte[] key = chaoticSystem.getKey();
-        byte[] iv = chaoticSystem.getIV();        
+        byte[] iv = chaoticSystem.getKey();        
         String result = instance.encrypt(this.decrypted, key, iv);
         assertEquals(result, this.encrypted);
     }

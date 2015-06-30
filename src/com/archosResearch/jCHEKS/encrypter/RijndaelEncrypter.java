@@ -5,7 +5,7 @@ import com.archosResearch.jCHEKS.concept.encrypter.AbstractEncrypter;
 import com.archosResearch.jCHEKS.concept.exception.EncrypterException;
 import java.io.UnsupportedEncodingException;
 import java.security.*;
-import java.util.Base64;
+import java.util.*;
 import javax.crypto.*;
 import javax.crypto.spec.*;
 
@@ -31,7 +31,8 @@ public class RijndaelEncrypter extends AbstractEncrypter{
     
     @Override
     public String encrypt(String text, byte[] key, byte[] iv) throws EncrypterException {
-        
+        System.out.println(Arrays.toString(key));
+        System.out.println(Arrays.toString(iv));
         byte[] encryptedData;
         try {
             IvParameterSpec IVParamSpec = new IvParameterSpec(iv);
