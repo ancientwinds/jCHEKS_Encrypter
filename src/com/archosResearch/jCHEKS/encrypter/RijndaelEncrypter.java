@@ -1,11 +1,9 @@
 package com.archosResearch.jCHEKS.encrypter;
 
-import com.archosResearch.jCHEKS.concept.chaoticSystem.AbstractChaoticSystem;
 import com.archosResearch.jCHEKS.concept.encrypter.AbstractEncrypter;
 import com.archosResearch.jCHEKS.concept.exception.EncrypterException;
 import java.io.UnsupportedEncodingException;
 import java.security.*;
-import java.util.Arrays;
 import java.util.Base64;
 import javax.crypto.*;
 import javax.crypto.spec.*;
@@ -25,15 +23,25 @@ public class RijndaelEncrypter extends AbstractEncrypter{
 
     private final Cipher cipher;
     
+    private final int keyLenght = 128;
+    private final int ivLenght = 16;
+    
     public RijndaelEncrypter() throws NoSuchAlgorithmException, NoSuchPaddingException {
         this.digest = MessageDigest.getInstance(DIGEST);  
         this.cipher = Cipher.getInstance(TRANSFORMATION);
     }
     
     @Override
-    public String encrypt(String text, byte[] key, byte[] iv) throws EncrypterException {
+    public String encrypt(String text, byte[] keyByte) throws EncrypterException {
 
         byte[] encryptedData;
+        
+        byte[] key = new byte[this.keyLenght];
+        byte[] iv = new byte[this.ivLenght];
+        
+        System.arraycopy(keyByte, 0, key, 0, this.keyLenght);
+        System.arraycopy(keyByte, this.keyLenght, iv, 0, this.ivLenght);
+        
         try {
             IvParameterSpec IVParamSpec = new IvParameterSpec(iv);
             SecretKey password = new SecretKeySpec(this.digest.digest(key), ALGORITHM);
@@ -49,10 +57,15 @@ public class RijndaelEncrypter extends AbstractEncrypter{
     }
 
     @Override
-    public String decrypt(String text, byte[] key, byte[] iv) throws EncrypterException {        
+    public String decrypt(String text, byte[] keyByte) throws EncrypterException {        
         
         try {
+            byte[] key = new byte[this.keyLenght];
+            byte[] iv = new byte[this.ivLenght];
 
+            System.arraycopy(keyByte, 0, key, 0, this.keyLenght);
+            System.arraycopy(keyByte, this.keyLenght, iv, 0, this.ivLenght);
+            
             IvParameterSpec IVParamSpec = new IvParameterSpec(iv);
             SecretKey password = new SecretKeySpec(this.digest.digest(key), ALGORITHM);
 
@@ -65,5 +78,10 @@ public class RijndaelEncrypter extends AbstractEncrypter{
         } catch (InvalidKeyException | InvalidAlgorithmParameterException | IllegalBlockSizeException | BadPaddingException ex) {
             throw new EncrypterException("Rijndael Decryption error", ex);
         }
+    }
+
+    @Override
+    public int bytesNeeded() {
+        return (this.keyLenght + this.ivLenght) * 8;
     }
 }
