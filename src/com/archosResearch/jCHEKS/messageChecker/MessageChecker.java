@@ -4,8 +4,6 @@ import com.archosResearch.jCHEKS.messageChecker.exception.MessageCheckerExceptio
 import java.io.UnsupportedEncodingException;
 import java.security.*;
 import java.util.Base64;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
@@ -14,6 +12,9 @@ import javax.crypto.spec.SecretKeySpec;
  * @author Thomas Lepage thomas.lepage@hotmail.ca
  */
 public class MessageChecker {
+    
+    private static final int keyLength = 16;
+    
     public static String encodeMessage(byte[] key, String message) throws MessageCheckerException {
         try {
             Mac sha256_hmac = Mac.getInstance("Hmacsha256");
@@ -34,5 +35,9 @@ public class MessageChecker {
         } catch (MessageCheckerException ex) {
             throw new MessageCheckerException("Error while validating the message");
         }
+    }
+    
+    public static int getKeyLength() {
+        return MessageChecker.keyLength;
     }
 }

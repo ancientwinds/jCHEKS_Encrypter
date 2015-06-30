@@ -5,14 +5,15 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author Thomas Lepage thomas.lepage@hotmail.ca
  */
 public class SecureAckGenerator {
+    
+    private static final int keyLength = 16;
+    
     public static String generateSecureAck(byte[] key, String message) throws SecureAckGeneratorException {
         try {
             MessageDigest messageDigest = MessageDigest.getInstance("MD5");
@@ -33,5 +34,9 @@ public class SecureAckGenerator {
             throw new SecureAckGeneratorException("Error while validating the secure ack");
         }
        
+    }
+    
+    public static int getKeyLength() {
+        return SecureAckGenerator.keyLength;
     }
 }
