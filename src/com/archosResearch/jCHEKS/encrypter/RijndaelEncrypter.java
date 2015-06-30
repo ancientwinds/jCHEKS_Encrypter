@@ -1,11 +1,9 @@
 package com.archosResearch.jCHEKS.encrypter;
 
-import com.archosResearch.jCHEKS.concept.chaoticSystem.AbstractChaoticSystem;
 import com.archosResearch.jCHEKS.concept.encrypter.AbstractEncrypter;
 import com.archosResearch.jCHEKS.concept.exception.EncrypterException;
 import java.io.UnsupportedEncodingException;
 import java.security.*;
-import java.util.Arrays;
 import java.util.Base64;
 import javax.crypto.*;
 import javax.crypto.spec.*;
