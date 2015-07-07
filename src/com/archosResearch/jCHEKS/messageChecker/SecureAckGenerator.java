@@ -37,6 +37,6 @@ public class SecureAckGenerator {
     }
     
     public static int getKeyLength() {
-        return SecureAckGenerator.keyLength;
+        return SecureAckGenerator.keyLength * 8;
     }
 }
