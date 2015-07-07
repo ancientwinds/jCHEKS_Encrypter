@@ -84,6 +84,6 @@ public class RijndaelEncrypter extends AbstractEncrypter{
 
     @Override
     public int bytesNeeded() {
-        return (this.keyLenght + this.ivLenght);
+        return (this.keyLenght + this.ivLenght) * 8;
     }
 }
