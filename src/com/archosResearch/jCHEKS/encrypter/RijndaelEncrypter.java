@@ -42,7 +42,7 @@ public class RijndaelEncrypter extends AbstractEncrypter{
         byte[] iv = new byte[this.ivLenght];
         
         System.arraycopy(keyByte, 0, key, 0, this.keyLenght);
-        System.arraycopy(keyByte, this.keyLenght, iv, 0, this.ivLenght);
+        System.arraycopy(keyByte, this.keyLenght - 1, iv, 0, this.ivLenght);
         
         try {
             IvParameterSpec IVParamSpec = new IvParameterSpec(iv);
@@ -66,7 +66,7 @@ public class RijndaelEncrypter extends AbstractEncrypter{
             byte[] iv = new byte[this.ivLenght];
 
             System.arraycopy(keyByte, 0, key, 0, this.keyLenght);
-            System.arraycopy(keyByte, this.keyLenght, iv, 0, this.ivLenght);
+            System.arraycopy(keyByte, this.keyLenght - 1, iv, 0, this.ivLenght);
             
             IvParameterSpec IVParamSpec = new IvParameterSpec(iv);
             SecretKey password = new SecretKeySpec(this.digest.digest(key), ALGORITHM);
@@ -83,7 +83,7 @@ public class RijndaelEncrypter extends AbstractEncrypter{
     }
 
     @Override
-    public int bytesNeeded() {
-        return (this.keyLenght + this.ivLenght) * 8;
+    public int getByteNeeded() {
+        return (this.keyLenght + this.ivLenght);
     }
 }
