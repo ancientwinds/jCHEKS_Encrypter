@@ -47,7 +47,7 @@ public class MockChaoticSystem extends AbstractChaoticSystem{
 
 
     @Override
-    public void Deserialize(String serialization) {
+    public void deserialize(String serialization) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
