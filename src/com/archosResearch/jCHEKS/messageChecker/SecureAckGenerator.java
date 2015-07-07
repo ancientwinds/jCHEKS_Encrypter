@@ -2,8 +2,7 @@ package com.archosResearch.jCHEKS.messageChecker;
 
 import com.archosResearch.jCHEKS.messageChecker.exception.SecureAckGeneratorException;
 import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import java.security.*;
 import java.util.Base64;
 
 /**
@@ -19,27 +18,16 @@ public class SecureAckGenerator {
             MessageDigest messageDigest = MessageDigest.getInstance("MD5");
             messageDigest.update(key);
             messageDigest.update(message.getBytes("UTF-8"));
-            String secureAck = Base64.getEncoder().encodeToString(messageDigest.digest());
             
-            System.out.println(message);
-            System.out.println(secureAck);
-            System.out.println(key);
-            
-            return secureAck;
+            return Base64.getEncoder().encodeToString(messageDigest.digest());
         } catch (UnsupportedEncodingException | NoSuchAlgorithmException ex) {
             throw new SecureAckGeneratorException("Error while generating the secure ack.", ex);
         }
     }
     
     public static boolean validateSecureAck(byte[] key, String message, String secureAck) throws SecureAckGeneratorException {
-        try {
-           
+        try {           
             String newSecureAck = SecureAckGenerator.generateSecureAck(key, message);
-            
-            System.out.println(message);
-            System.out.println(secureAck);
-            System.out.println(newSecureAck);
-            System.out.println(key);
             
             return newSecureAck.equals(secureAck);
         } catch (SecureAckGeneratorException ex) {
@@ -49,6 +37,6 @@ public class SecureAckGenerator {
     }
     
     public static int getKeyLength() {
-        return SecureAckGenerator.keyLength * 8;
+        return SecureAckGenerator.keyLength;
     }
 }

@@ -17,11 +17,11 @@ public class MessageChecker {
     
     public static String encodeMessage(byte[] key, String message) throws MessageCheckerException {
         try {
-            Mac sha256_hmac = Mac.getInstance("Hmacsha256");
+            Mac hmac = Mac.getInstance("HmacSHA256");
             SecretKeySpec secretKey = new SecretKeySpec(key, "HmacSHA256");
-            sha256_hmac.init(secretKey);
+            hmac.init(secretKey);
             
-            return Base64.getEncoder().encodeToString(sha256_hmac.doFinal(message.getBytes("UTF-8")));
+            return Base64.getEncoder().encodeToString(hmac.doFinal(message.getBytes("UTF-8")));
         } catch (NoSuchAlgorithmException | InvalidKeyException | UnsupportedEncodingException ex) {
             throw new MessageCheckerException("Error while encoding the message check.", ex);
         }
@@ -38,6 +38,6 @@ public class MessageChecker {
     }
     
     public static int getKeyLength() {
-        return MessageChecker.keyLength * 8;
+        return MessageChecker.keyLength;
     }
 }
