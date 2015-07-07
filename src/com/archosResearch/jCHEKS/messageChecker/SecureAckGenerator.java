@@ -21,10 +21,6 @@ public class SecureAckGenerator {
             messageDigest.update(message.getBytes("UTF-8"));
             String secureAck = Base64.getEncoder().encodeToString(messageDigest.digest());
             
-            System.out.println(message);
-            System.out.println(secureAck);
-            System.out.println(key);
-            
             return secureAck;
         } catch (UnsupportedEncodingException | NoSuchAlgorithmException ex) {
             throw new SecureAckGeneratorException("Error while generating the secure ack.", ex);
@@ -32,14 +28,8 @@ public class SecureAckGenerator {
     }
     
     public static boolean validateSecureAck(byte[] key, String message, String secureAck) throws SecureAckGeneratorException {
-        try {
-           
+        try {           
             String newSecureAck = SecureAckGenerator.generateSecureAck(key, message);
-            
-            System.out.println(message);
-            System.out.println(secureAck);
-            System.out.println(newSecureAck);
-            System.out.println(key);
             
             return newSecureAck.equals(secureAck);
         } catch (SecureAckGeneratorException ex) {

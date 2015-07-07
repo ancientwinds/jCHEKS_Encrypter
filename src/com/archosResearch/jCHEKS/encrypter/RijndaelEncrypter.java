@@ -17,6 +17,8 @@ public class RijndaelEncrypter extends AbstractEncrypter{
     private static final String TRANSFORMATION = "AES/CBC/PKCS5Padding";
     private static final String ALGORITHM = "AES";
     // TODO : Use SHA2 instead of MD5
+    // Thomas: we should talk about that. SHA256 need and external lib since java support only
+    // up to 128-bit encription by default...
     private static final String DIGEST = "MD5";
     
     private final MessageDigest digest;
@@ -82,6 +84,6 @@ public class RijndaelEncrypter extends AbstractEncrypter{
 
     @Override
     public int bytesNeeded() {
-        return (this.keyLenght + this.ivLenght) * 8;
+        return (this.keyLenght + this.ivLenght);
     }
 }
