@@ -52,7 +52,7 @@ public class MockChaoticSystem extends AbstractChaoticSystem{
     }
 
     @Override
-    public void generateSystem(int keyLength) throws Exception {}
+    public void generateSystem(int keyLength) {}
 
     @Override
     public String serialize() {
