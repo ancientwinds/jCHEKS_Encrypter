@@ -38,6 +38,6 @@ public class MessageChecker {
     }
     
     public static int getKeyLength() {
-        return MessageChecker.keyLength * 8;
+        return MessageChecker.keyLength;
     }
 }

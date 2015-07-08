@@ -2,6 +2,7 @@ package com.archosResearch.jCHEKS.encrypter.mock;
 
 import com.archosResearch.jCHEKS.concept.chaoticSystem.AbstractChaoticSystem;
 import java.util.Arrays;
+import java.util.Random;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -52,7 +53,7 @@ public class MockChaoticSystem extends AbstractChaoticSystem{
     }
 
     @Override
-    public void generateSystem(int keyLength) {}
+    public void generateSystem(int keyLength, Random random) {}
 
     @Override
     public String serialize() {

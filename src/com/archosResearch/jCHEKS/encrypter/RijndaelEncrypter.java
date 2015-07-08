@@ -16,20 +16,13 @@ public class RijndaelEncrypter extends AbstractEncrypter{
 
     private static final String TRANSFORMATION = "AES/CBC/PKCS5Padding";
     private static final String ALGORITHM = "AES";
-    // TODO : Use SHA2 instead of MD5
-    // Thomas: we should talk about that. SHA256 need and external lib since java support only
-    // up to 128-bit encription by default...
-    private static final String DIGEST = "MD5";
     
-    private final MessageDigest digest;
-
     private final Cipher cipher;
     
-    private final int keyLenght = 128;
+    private final int keyLenght = 16;
     private final int ivLenght = 16;
     
     public RijndaelEncrypter() throws NoSuchAlgorithmException, NoSuchPaddingException {
-        this.digest = MessageDigest.getInstance(DIGEST);  
         this.cipher = Cipher.getInstance(TRANSFORMATION);
     }
     
@@ -46,7 +39,7 @@ public class RijndaelEncrypter extends AbstractEncrypter{
         
         try {
             IvParameterSpec IVParamSpec = new IvParameterSpec(iv);
-            SecretKey password = new SecretKeySpec(this.digest.digest(key), ALGORITHM);
+            SecretKey password = new SecretKeySpec(key, ALGORITHM);
 
             this.cipher.init(Cipher.ENCRYPT_MODE, password, IVParamSpec);
             encryptedData = this.cipher.doFinal(text.getBytes("UTF8"));
@@ -69,7 +62,7 @@ public class RijndaelEncrypter extends AbstractEncrypter{
             System.arraycopy(keyByte, this.keyLenght - 1, iv, 0, this.ivLenght);
             
             IvParameterSpec IVParamSpec = new IvParameterSpec(iv);
-            SecretKey password = new SecretKeySpec(this.digest.digest(key), ALGORITHM);
+            SecretKey password = new SecretKeySpec(key, ALGORITHM);
 
             this.cipher.init(Cipher.DECRYPT_MODE, password, IVParamSpec);
             byte[] decodedData = Base64.getDecoder().decode(text);
